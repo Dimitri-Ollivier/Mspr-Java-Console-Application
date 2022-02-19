@@ -6,28 +6,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GenerateIndex {
-    public GenerateIndex() throws IOException {
-        //TODO récupérer depuis git
-        File doc = new File("src/main/resources/staff.txt");
-        Scanner sc = new Scanner(doc);
-        sc.useDelimiter(System.getProperty("line.separator"));
-
-        List<String> info = new ArrayList<String>();
-
-        while (sc.hasNext()) {
-            info.add(sc.next());
-        }
-        sc.close();
+    public GenerateIndex(List<String> staff) throws IOException {
 
         List<String> names = new ArrayList<>();
-        for (String nom : info) {
+        for (String nom : staff) {
             names.add(nom.substring(1, 2).toUpperCase() + nom.substring(2));
         }
         java.util.Collections.sort(names);
 
         List<String> urls = new ArrayList<>();
         for (String nom : names) {
-            for (String url : info) {
+            for (String url : staff) {
                 if (nom.equals(url.substring(1, 2).toUpperCase() + url.substring(2))) {
                     urls.add(url);
                 }

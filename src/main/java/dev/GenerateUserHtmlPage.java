@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class GenerateDetails {
-    public GenerateDetails(String fileName) throws Exception {
+public class GenerateUserHtmlPage {
+    public GenerateUserHtmlPage(String fileName) throws Exception {
         // TODO scan du répertoire en cherchant en paramètre le nom du fichier
 
         // Récuppération des données parsées pour notre utilisateur
@@ -23,7 +23,7 @@ public class GenerateDetails {
 
         htmlContent = new StringBuilder("<ul>" + htmlContent + "</ul>");
 
-        File htmlFile = new File("src/main/resources/templateDesc.html");
+        File htmlFile = new File("src/main/resources/templateUserDesc.html");
         Scanner htmlScanner = new Scanner(htmlFile);
         htmlScanner.useDelimiter(System.getProperty("line.separator"));
 
