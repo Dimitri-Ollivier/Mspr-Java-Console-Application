@@ -1,22 +1,19 @@
 package dev;
 
-import java.awt.*;
 import java.util.List;
 
 public class User {
-    String name;
-    String surname;
-    String job;
-    String password;
-    List<String> materials;
-    Image photo;
-    String htmlFileContent;
-    Boolean isUserDataChange;
+    private final String name;
+    private final String surname;
+    private String job;
+    private String password;
+    private List<String> materials;
+    private String photo;
+    private String htmlFileContent;
 
-    public User(String name, String surname, Boolean isUserDataChange) {
+    public User(String name, String surname) {
         this.name = name;
         this.surname = surname;
-        this.isUserDataChange = isUserDataChange;
     }
 
     public void setJob(String job) {
@@ -31,16 +28,12 @@ public class User {
         this.materials = materials;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
-    public void setHtmlFileContent() {
-        this.htmlFileContent = this.surname.charAt(0) + this.name + ".html";
-    }
-
-    public void setIsUserDataChange(Boolean isUserDataChange) {
-        this.isUserDataChange = isUserDataChange;
+    public void setHtmlFileContent(String htmlContent) {
+        this.htmlFileContent = htmlContent;
     }
 
     public String getName() {
@@ -51,15 +44,24 @@ public class User {
         return this.surname;
     }
 
-    public Image getPhoto() {
+    public String getJob() {
+        return this.job;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+
+    public List<String> getMaterials() {
+        return this.materials;
+    }
+
+    public String getPhoto() {
         return this.photo;
     }
 
     public String getHtmlFileContent() {
         return this.htmlFileContent;
-    }
-
-    public Boolean getIsUserDataChange() {
-        return this.isUserDataChange;
     }
 }
