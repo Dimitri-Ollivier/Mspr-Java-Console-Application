@@ -3,21 +3,18 @@ package dev;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class HtmlPage {
     public static String GenerateHtmlPage(User user) throws IOException {
-        File templateHtmlPage = new File(App.gitPath + "templateUserDesc.html");
-        Scanner htmlScanner = new Scanner(templateHtmlPage);
-        htmlScanner.useDelimiter(System.getProperty("line.separator"));
-
+        String templateHtml = App.gitPath + "templateUserDesc.html";
+        List<String> htmlTemplatePage = App.GetGitFiles(templateHtml);
         StringBuilder htmlPage = new StringBuilder();
 
-        while (htmlScanner.hasNext()) {
-            htmlPage.append(htmlScanner.next());
+        if (htmlTemplatePage != null) {
+            for (String line: htmlTemplatePage) {
+                htmlPage.append(line);
+            }
         }
-
-        htmlScanner.close();
 
         htmlPage = new StringBuilder(htmlPage.toString().replace("[[NAME]]", user.getName()));
         htmlPage = new StringBuilder(htmlPage.toString().replace("[[SURNAME]]", user.getSurname()));
@@ -53,19 +50,18 @@ public class HtmlPage {
         }
         li = li + "</ul>";
 
-        File doc2 = new File(App.gitPath + "templateIndex.html");
-        Scanner sc2 = new Scanner(doc2);
-        sc2.useDelimiter(System.getProperty("line.separator"));
+        String templateHtml = App.gitPath + "templateIndex.html";
+        List<String> htmlTemplateIndex = App.GetGitFiles(templateHtml);
+        StringBuilder htmlIndex = new StringBuilder();
 
-        StringBuilder docHtml = new StringBuilder();
-
-        while (sc2.hasNext()) {
-            docHtml.append(sc2.next());
+        if (htmlTemplateIndex != null) {
+            for (String line: htmlTemplateIndex) {
+                htmlIndex.append(line);
+            }
         }
-        sc2.close();
 
-        docHtml = new StringBuilder(docHtml.toString().replace("[[liste]]", li));
+        htmlIndex = new StringBuilder(htmlIndex.toString().replace("[[liste]]", li));
 
-        return docHtml.toString();
+        return htmlIndex.toString();
     }
 }

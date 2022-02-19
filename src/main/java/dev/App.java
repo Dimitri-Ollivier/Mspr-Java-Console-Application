@@ -49,11 +49,11 @@ public class App {
             System.exit(1);
         }
 
-        System.out.println("Traitement terminé avec succès.");
+        System.out.println("\n Traitement terminé avec succès.");
         System.exit(0);
     }
 
-    private static List<String> GetGitFiles(String path) throws IOException {
+    protected static List<String> GetGitFiles(String path) throws IOException {
         java.net.URL url;
         List<String> dataRaw = new ArrayList<>();
 
