@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HtmlPage {
     public static String GenerateHtmlPage(User user) throws IOException {
-        String templateHtml = App.gitPath + "templateUserDesc.html";
+        String templateHtml = App.gitPath + "templateUserPage.html";
         List<String> htmlTemplatePage = App.GetGitFiles(templateHtml);
         StringBuilder htmlPage = new StringBuilder();
 
@@ -50,7 +50,7 @@ public class HtmlPage {
         }
         li = li + "</ul>";
 
-        String templateHtml = App.gitPath + "templateIndex.html";
+        String templateHtml = App.gitPath + "templateIndexPage.html";
         List<String> htmlTemplateIndex = App.GetGitFiles(templateHtml);
         StringBuilder htmlIndex = new StringBuilder();
 
