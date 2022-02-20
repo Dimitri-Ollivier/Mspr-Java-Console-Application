@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HtmlPage {
     public static String GenerateHtmlPage(User user) throws IOException {
-        String templateHtml = App.gitPath + "templateUserPage.html";
+        String templateHtml ="https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Console-Application/master/src/main/resources/templateUserPage.html";
         List<String> htmlTemplatePage = App.GetGitFiles(templateHtml);
         StringBuilder htmlPage = new StringBuilder();
 
@@ -20,7 +20,14 @@ public class HtmlPage {
         htmlPage = new StringBuilder(htmlPage.toString().replace("[[SURNAME]]", user.getSurname()));
         htmlPage = new StringBuilder(htmlPage.toString().replace("[[JOB]]", user.getJob()));
         htmlPage = new StringBuilder(htmlPage.toString().replace("[[IDENT_CARD]]", user.getPhoto()));
-        htmlPage = new StringBuilder(htmlPage.toString().replace("[[MATERIAL]]", user.getMaterials().toString()));
+
+        StringBuilder materialsHtmlContent = new StringBuilder();
+
+        for(int i = 0; i <= user.getMaterials().size() - 1; i++) {
+            materialsHtmlContent.append("<li><h3 class=''materiel''>").append(user.getMaterials().get(i)).append("</h3><img class=''checkIcon'' src=''https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Backup-Directory/main/box_check_icon.svg''></li>");
+        }
+
+        htmlPage = new StringBuilder(htmlPage.toString().replace("[[MATERIAL]]", materialsHtmlContent));
 
         return htmlPage.toString();
     }
