@@ -40,8 +40,8 @@ public class App {
                 }
             }
 
-            if (materials != null && !materials.isEmpty()) {
-                String indexHtmlContent = HtmlPage.GenerateIndex(materials);
+            if (userNames != null && !userNames.isEmpty()) {
+                String indexHtmlContent = HtmlPage.GenerateIndex(userNames, users);
                 String test = "";
             }
         } catch (Exception ex) {
@@ -106,8 +106,8 @@ public class App {
             // Récupération du matériel de l'utilisateur
             List<String> materials = new ArrayList<>();
 
-            if (userData.size() >= 4) {
-                for (int i = 4; i <= userData.size() - 1; i++) {
+            if (userData.size() >= 5) {
+                for (int i = 5; i <= userData.size() - 1; i++) {
                     materials.add(userData.get(i));
                 }
 
