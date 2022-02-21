@@ -23,7 +23,7 @@ public class HtmlPage {
         StringBuilder materialsHtmlContent = new StringBuilder();
 
         for(int i = 0; i <= user.getMaterials().size() - 1; i++) {
-            materialsHtmlContent.append("<li><h3 class=\"materiel\">").append(user.getMaterials().get(i)).append("</h3><img class=\"checkIcon\" src=\"https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Backup-Directory/main/box_check_icon.svg\"></li>");
+            materialsHtmlContent.append("<li><h3 class=\"materiel\">").append(user.getMaterials().get(i)).append("</h3><img class=\"checkIcon\" src=\"https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Console-Application/master/src/main/resources/box_check_icon.svg\"></li>");
         }
 
         htmlPage = new StringBuilder(htmlPage.toString().replace("[[MATERIAL]]", materialsHtmlContent));
