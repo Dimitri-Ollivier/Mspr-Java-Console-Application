@@ -45,7 +45,7 @@ public class HtmlPage {
         StringBuilder usersHtmlContent = new StringBuilder();
 
         for(int i = 0; i <= users.size() - 1; i++) {
-            usersHtmlContent.append("<li><a class=\"button\" href=\"").append(users.get(i).getSurname().charAt(0)).append(users.get(i).getName()).append(".html\">").append(users.get(i).getName()).append(" ").append(users.get(i).getSurname()).append("</a></li>");
+            usersHtmlContent.append("<li><a class=\"button\" href=\"").append(users.get(i).getSurname().toLowerCase().charAt(0)).append(users.get(i).getName().toLowerCase()).append(".html\">").append(users.get(i).getName()).append(" ").append(users.get(i).getSurname()).append("</a></li>");
         }
 
         htmlIndex = new StringBuilder(htmlIndex.toString().replace("[[USERS]]", usersHtmlContent));

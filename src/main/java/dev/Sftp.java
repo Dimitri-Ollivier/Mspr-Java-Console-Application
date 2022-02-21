@@ -48,9 +48,9 @@ public class Sftp {
         return false;
     }
 
-    public static void Upload() throws Exception {
+    public static void Upload(String srcPath, String fileName) throws Exception {
         try {
-            channelSftp.put("C:\\Users\\dimit\\temp\\user.html", "../../../var/www/html/user.html");
+            channelSftp.put(srcPath, "../../../var/www/html/" + fileName);
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }

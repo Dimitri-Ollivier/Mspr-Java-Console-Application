@@ -2,32 +2,26 @@ package dev;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 
 public class App {
     private static final String username = "dimitri.ollivier14@gmail.com";
     private static final String password = "$2y$10$YG7vxD5obRyndy2mAUus..gDCskawtO/4YfxlqZeMKBiCnzWysRVW";
     protected static final String gitPath = "https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Backup-Directory/main/";
-    protected static final String tempPath = "C:\\Users\\dimit\\temp\\";
     protected static List<User> users = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
             Sftp.Connect();
 
-            if (Sftp.IsConnected()) {
-                Sftp.Upload();
-            }
-
-            Sftp.Disconnect();
-
             String staffPath = gitPath + "staff.txt";
             String listPath = gitPath + "liste.txt";
 
             List<String> userNames = GetGitFiles(staffPath);
-            List<String> materials = GetGitFiles(listPath);
 
             if (userNames != null && !userNames.isEmpty()) {
                 for (String UserName : userNames ) {
@@ -45,13 +39,54 @@ public class App {
                 for (User user : users ) {
                     // Génération de la page html de chaque utilisateur
                     String htmlContent = HtmlPage.GenerateHtmlPage(user);
-                    user.setHtmlFileContent(htmlContent);
+
+                    File userHtmlFile = File.createTempFile("user", ".html");
+
+                    FileWriter fw = new FileWriter(userHtmlFile.getAbsoluteFile());
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write(htmlContent);
+                    bw.close();
+
+                    if (Sftp.IsConnected()) {
+                        Sftp.Upload(userHtmlFile.getAbsolutePath(), user.getSurname().toLowerCase().charAt(0) + user.getName().toLowerCase() + ".html");
+                    }
+
+                    if (!user.getPhoto().isEmpty()) {
+                        File userPhotoFile = File.createTempFile("photo", ".jpg");
+
+                        URL url = new URL(user.getPhoto());
+                        InputStream is = url.openStream();
+                        OutputStream os = new FileOutputStream(userPhotoFile);
+
+                        byte[] b = new byte[2048];
+                        int length;
+
+                        while ((length = is.read(b)) != -1) {
+                            os.write(b, 0, length);
+                        }
+
+                        is.close();
+                        os.close();
+
+                        Sftp.Upload(userPhotoFile.getAbsolutePath(), user.getSurname().toLowerCase().charAt(0) + user.getName().toLowerCase() + ".jpg");
+                    }
                 }
 
                 String indexHtmlContent = HtmlPage.GenerateIndex(users);
-                //TODO mettre a jour apache ici
-                String test = "";
+
+                File indexHtmlFile = File.createTempFile("index", ".html");
+
+                FileWriter fw = new FileWriter(indexHtmlFile.getAbsoluteFile());
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(indexHtmlContent);
+                bw.close();
+
+                if (Sftp.IsConnected()) {
+                    Sftp.Upload(indexHtmlFile.getAbsolutePath(), "index.html");
+                }
             }
+
+            Sftp.Disconnect();
         } catch (Exception ex) {
             System.out.println("Traitement terminé avec une erreur : " + ex.getMessage());
             System.exit(1);
@@ -70,8 +105,8 @@ public class App {
             HttpURLConnection uc = (HttpURLConnection) url.openConnection();
 
             uc.setRequestProperty("X-Requested-With", "Curl");
-            String userpass = username + ":" + password;
-            String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userpass.getBytes()));//needs Base64 encoder, apache.commons.codec
+            String userPass = username + ":" + password;
+            String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userPass.getBytes()));//needs Base64 encoder, apache.commons.codec
             uc.setRequestProperty("Authorization", basicAuth);
 
             int responseCode = uc.getResponseCode();

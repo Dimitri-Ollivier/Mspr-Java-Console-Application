@@ -32,10 +32,6 @@ public class User {
         this.photo = photo;
     }
 
-    public void setHtmlFileContent(String htmlContent) {
-        this.htmlFileContent = htmlContent;
-    }
-
     public String getName() {
         return this.name;
     }
@@ -59,9 +55,5 @@ public class User {
 
     public String getPhoto() {
         return this.photo;
-    }
-
-    public String getHtmlFileContent() {
-        return this.htmlFileContent;
     }
 }
