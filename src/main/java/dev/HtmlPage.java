@@ -1,9 +1,7 @@
 package dev;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class HtmlPage {
     public static String GenerateHtmlPage(User user) throws IOException {
@@ -33,7 +31,7 @@ public class HtmlPage {
         return htmlPage.toString();
     }
 
-    public static String GenerateIndex(List<String> staff, List<User> users) throws IOException {
+    public static String GenerateIndex(List<User> users) throws IOException {
         String templateHtml = "https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Console-Application/master/src/main/resources/templateIndexPage.html";
         List<String> htmlTemplateIndex = App.GetGitFiles(templateHtml);
         StringBuilder htmlIndex = new StringBuilder();

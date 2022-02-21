@@ -10,10 +10,19 @@ public class App {
     private static final String username = "dimitri.ollivier14@gmail.com";
     private static final String password = "$2y$10$YG7vxD5obRyndy2mAUus..gDCskawtO/4YfxlqZeMKBiCnzWysRVW";
     protected static final String gitPath = "https://raw.githubusercontent.com/Dimitri-Ollivier/Mspr-Java-Backup-Directory/main/";
+    protected static final String tempPath = "C:\\Users\\dimit\\temp\\";
     protected static List<User> users = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
+            Sftp.Connect();
+
+            if (Sftp.IsConnected()) {
+                Sftp.Upload();
+            }
+
+            Sftp.Disconnect();
+
             String staffPath = gitPath + "staff.txt";
             String listPath = gitPath + "liste.txt";
 
@@ -38,10 +47,9 @@ public class App {
                     String htmlContent = HtmlPage.GenerateHtmlPage(user);
                     user.setHtmlFileContent(htmlContent);
                 }
-            }
 
-            if (userNames != null && !userNames.isEmpty()) {
-                String indexHtmlContent = HtmlPage.GenerateIndex(userNames, users);
+                String indexHtmlContent = HtmlPage.GenerateIndex(users);
+                //TODO mettre a jour apache ici
                 String test = "";
             }
         } catch (Exception ex) {
@@ -87,7 +95,7 @@ public class App {
         }
     }
 
-    private static User generateUser(String username) throws IOException {
+        private static User generateUser(String username) throws IOException {
         // Récupération des informations de l'utilisateur passé en paramètre
         List<String> userData = GetGitFiles(gitPath + username + ".txt");
 
