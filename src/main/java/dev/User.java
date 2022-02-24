@@ -9,7 +9,6 @@ public class User {
     private String password;
     private List<String> materials;
     private String photo;
-    private String htmlFileContent;
 
     public User(String name, String surname) {
         this.name = name;

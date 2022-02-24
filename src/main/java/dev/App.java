@@ -18,7 +18,6 @@ public class App {
             Sftp.Connect();
 
             String staffPath = gitPath + "staff.txt";
-            String listPath = gitPath + "liste.txt";
 
             List<String> userNames = GetGitFiles(staffPath);
 
