@@ -16,7 +16,7 @@ public class Sftp {
             String pass = "debian";
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
-            String host = "172.16.89.45";
+            String host = "172.16.89.49";
 
             JSch jSch = new JSch();
             session = jSch.getSession(user, host);
