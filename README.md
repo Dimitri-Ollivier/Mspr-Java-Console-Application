@@ -1,3 +1,2 @@
 # MSPRjava
-
-Développement Application For the Mspr Java
+Java Console application for the MSPR Development
